@@ -21,6 +21,8 @@
 #include <unistd.h>
 #include <ws.h>
 
+int port = 8086;
+
 /**
  * @dir example/
  * @brief wsServer examples folder
@@ -41,7 +43,7 @@ void onopen(int fd)
 	char *cli;
 	cli = ws_getaddress(fd);
 #ifndef DISABLE_VERBOSE
-	printf("Connection opened, client: %d | addr: %s\n", fd, cli);
+	printf("Connection opened, client: %d | address: %s port:%d\n", fd, cli, port);
 #endif
 	free(cli);
 }
@@ -58,7 +60,7 @@ void onclose(int fd)
 	char *cli;
 	cli = ws_getaddress(fd);
 #ifndef DISABLE_VERBOSE
-	printf("Connection closed, client: %d | addr: %s\n", fd, cli);
+	printf("Connection closed, client: %d | address: %s port:%d\n", fd, cli, port);
 #endif
 	free(cli);
 }
@@ -110,11 +112,11 @@ int main(void)
 	evs.onopen    = &onopen;
 	evs.onclose   = &onclose;
 	evs.onmessage = &onmessage;
-	ws_socket(&evs, 8080, 0); /* Never returns. */
+	ws_socket(&evs, port, 0); /* Never returns. */
 
 	/*
 	 * If you want to execute code past ws_socket, invoke it like:
-	 *   ws_socket(&evs, 8080, 1)
+	 *   ws_socket(&evs, port, 1)
 	 */
 
 	return (0);

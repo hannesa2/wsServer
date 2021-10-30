@@ -1531,7 +1531,7 @@ int ws_socket(struct ws_events *evs, uint16_t port, int thread_loop)
 	listen(accept_data->sock, MAX_CLIENTS);
 
 	/* Wait for incoming connections. */
-	printf("Waiting for incoming connections...\n");
+	printf("Waiting for incoming connections [%d]...\n", port);
 	memset(client_socks, -1, sizeof(client_socks));
 
 	/* Accept connections. */
